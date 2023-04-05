@@ -1,0 +1,108 @@
+Hanna Schlegel
+hannasch@bu.edu
+
+puzzles with 5-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random			     10		5.8		141.6
+BFS			     10		5.0		47.1
+DFS (depth limit 20)	     10		16.2		19072.7
+DFS (depth limit 50)	     10		48.2		49043.0
+Greedy Search (using h1)     10		5.4		70.3
+A* (using h1)		     10		5.0		6.5
+
+puzzles with 10-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random			     10		12.8		3086.3
+BFS			     10		10.0		747.4
+DFS (depth limit 20)	     10		18.8		24858.0
+DFS (depth limit 50)	     10		49.2		92287.3
+Greedy Search (using h1)     8		76.0		325.625
+A* (using h1)		     10		10.0		27.3
+
+puzzles with 15-move optimal solutions
+-------------------------------------
+algorithm                num. solved    avg. moves    avg. states tested
+------------------------------------------------------------------------
+random		   	     8		17.75		14543.75
+BFS			     10		15.0		12672.0
+DFS (depth limit 20)         10		17.8		68659.0
+DFS (depth limit 50)	     10		48.6		111406.0
+Greedy Search (using h1)     6		90.3		2718.0
+A* (using h1)		     10		15.0		313.8
+
+From the test results recorded above we can see evidence that BFS is complete
+(if there is a solution, it will be found) and optimal (finds solution with 
+fewest moves) since it always solved all 10 puzzles in the least possible moves. 
+However, BFS can take too much time and memory, but this wasn't an issue with 
+these small-scale problems. We also see evidence that DFS is neither complete 
+nor optimal as the average moves were always greater than optimal. DFS uses less 
+memory, but again that was not an issue for these small-scale problems. We also 
+see that the Greedy algorithm tests the highest priority first, which means states 
+closer to the goal tiles. It is neither complete nor optimal as we see the number 
+of puzzles solved is not always all 10. Greedy falls short because it fails to 
+consider the cost that was already spent to get to the current state. We also
+see that A* finds an optimal solution, since the average moves are the optimal 
+moves. For A* time and memory can still be problematic, but much less so than 
+for uninformed search (BFS and DFS).
+
+heuristic h2
+------------
+This heuristic function h2 works by taking both number of tiles in the wrong row 
+as well as the number of tiles in the wrong column into account when assigning
+priority scores. h2 does not include the empty tile in the score and also does 
+not overestimate. 
+
+puzzles with 18-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	   6		136.3		2237.8
+Greedy (heuristic h2)	   10		385.8		866.7		
+
+A* (heuristic h1)	   10		18.0		1602.0
+A* (heuristic h2)	   10		18.0		3642.9
+
+puzzles with 21-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	   4		109.0		416.5
+Greedy (heuristic h2)      10		547.0		1187.0
+
+A* (heuristic h1)	   10		21.0		6301.7
+A* (heuristic h2)          10		21.0		10542.9
+
+puzzles with 24-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)	   6		123.7		2856.2
+Greedy (heuristic h2)	   10		671.4		1478.4
+
+A* (heuristic h1)	   0		N/A		N/A
+A* (heuristic h2)          0		N/A		N/A		
+
+puzzles with 27-move optimal solutions
+--------------------------------------
+algorithm              num. solved    avg. moves    avg. states tested
+----------------------------------------------------------------------
+Greedy (heuristic h1)      4		197.5		4285.5
+Greedy (heuristic h2)      10		642.2		1421.3
+
+A* (heuristic h1)	   0		N/A		N/A
+A* (heuristic h2)	   10		N/A		N/A
+
+Both the Greedy and A* algorithm are able to solve the puzzles more quickly and
+more often than not, the h2 heuristic function meant that fewer states needed
+to be tested on average and fewer searches needed to be terminated. This shows
+evidence that our optimized heuristic function is beneficial to testing. 
+However, Greedy Search is supposed to be able to find solutions requiring fewer 
+moves, this was not observed in the results, rather the opposite. The A* 
+algorithm continues to find optimal solutions. This means the heuristic function
+h2 is not overestimating the remaining cost for at least some states. However, 
+once the number of moves needed for a solution increase past 21, even the improved
+heuristic function takes too much time.
